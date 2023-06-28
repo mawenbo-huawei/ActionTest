@@ -34,10 +34,11 @@ jobs:
         run: |
           branch=$(git symbolic-ref --short -q HEAD)
           if [[ "$branch" == "main" ]]; then
-            git fetch origin master-dev:maste-dev
+            git checkout -b master-dev origin/master-dev
           else
             git checkout -b main origin/main
           fi
+          git checkout main
           git merge master-dev
           commit_id=$(git rev-parse HEAD)
           git push
