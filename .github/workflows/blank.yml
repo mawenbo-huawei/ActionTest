@@ -32,21 +32,22 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          branch=$(git symbolic-ref --short -q HEAD)
-          if [[ "$branch" == "main" ]]; then
+          git config --global user.email "mawenbo12@huawei.com"
+          git config --global user.name "mawenbo"
+          if [[ "$GITHUB_REF_NAME" == "main" ]]; then
             git fetch origin master-dev:master-dev
           else
             git fetch origin main:main
           fi
           git checkout main
           git merge master-dev --allow-unrelated-histories
-          commit_id=$(git rev-parse HEAD)
-          git push
-          curl -L \
+          version=0.0.1
+          git tag -a v$version -m "Release version ${version}"
+          git push origin main v$version
+          curl \
             -X POST \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer ${repo-token}" \
-            -H "X-GitHub-Api-Version: 2022-11-28" \
-            https://api.github.com/repos/mawenbo-huawei/ActionTest/git/tags \
-            -d "{\"tag\":\"v0.0.1\",\"message\":\"initial version\",\"object\":\"${commit_id}\",\"type\":\"commit\"}"
+            https://api.github.com/repos/${GITHUB_REPOSITORY}/releases \
+            -d "{\"tag_name\":\"v${version}\",\"target_commitish\":\"main\",\"name\":\"v${version}\",\"body\":\"Release ${version}\",\"draft\":false,\"prerelease\":false,\"generate_release_notes\":false}"
           
