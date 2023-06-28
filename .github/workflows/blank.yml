@@ -38,7 +38,7 @@ jobs:
           else
             git checkout -b main origin/main
           fi
-          git merge master_dev
+          git merge master-dev
           commit_id=$(git rev-parse HEAD)
           git push
           curl -L \
@@ -46,6 +46,6 @@ jobs:
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer ${repo-token}" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
-            https://api.github.com/repos/OWNER/REPO/git/tags \
+            https://api.github.com/repos/mawenbo-huawei/ActionTest/git/tags \
             -d "{\"tag\":\"v0.0.1\",\"message\":\"initial version\",\"object\":\"${commit_id}\",\"type\":\"commit\"}"
           
