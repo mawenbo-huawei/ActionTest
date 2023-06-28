@@ -34,9 +34,9 @@ jobs:
         run: |
           branch=$(git symbolic-ref --short -q HEAD)
           if [[ "$branch" == "main" ]]; then
-            git checkout -b master-dev origin/master-dev
+            git fetch origin master-dev:master-dev
           else
-            git checkout -b main origin/main
+            git fetch origin main:main
           fi
           git checkout main
           git merge master-dev
