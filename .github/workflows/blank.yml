@@ -39,7 +39,7 @@ jobs:
             git fetch origin main:main
           fi
           git checkout main
-          git merge master-dev
+          git merge master-dev --allow-unrelated-histories
           commit_id=$(git rev-parse HEAD)
           git push
           curl -L \
