@@ -1,4 +1,4 @@
-name: Publish Dotnet Packages To Nuget
+name: push
 on:
   push:
     branches: [ "master-dev" ]
@@ -14,6 +14,7 @@ jobs:
       run: |
         git config --global user.email "mawenbo12@huawei.com"
         git config --global user.name "mawenbo"
+        git pull
         git branch
         git tag
         git for-each-ref refs/tags --sort=-taggerdate --format='%(refname)' --count=1
