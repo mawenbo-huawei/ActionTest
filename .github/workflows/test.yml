@@ -16,19 +16,27 @@ jobs:
         git config user.name github-actions
         git config user.email github-actions@github.com
     - name: push
+      shell: bash
       run: |
         version=$(cat VERSION)
+        tag_name="release/${version}"
         mkdir ../temp || exit 1
         find . -maxdepth 1 -mindepth 1  | grep -Ev '*git*|.cid|.codecheck|buildscript' | xargs -I '{}' cp -a '{}' ../temp
         git checkout main
         find . -maxdepth 1 -mindepth 1  | grep -Ev '*git*' | xargs -I '{}' rm -rf '{}'
         mv ../temp/* .
-        if [ -n "$(git tag --list)" ]; then tag=$(git describe --abbrev=0 --tags); fi
-        if [[ "$tag" == *"$version"* ]]; then
-          echo "yes"
-        else
-          echo "no"
-        fi
         git add -A .
+        if [[ "$(git status | grep 'nothing to commit')" ]]; then echo 'nothing to commit, exit' && exit 0; fi
         git commit -m "release version: $version"
-        git push
+        tag_exists=false
+        for tag in $(git tag --list)
+        do
+          if [[ "$tag" == "$tag_name" ]]; then tag_exists=true && break; fi
+        done
+        if [[ "$tag_exists" == "true" ]]
+        then
+          git push
+        else
+          git tag -a "$tag_name" -m "" HEAD
+          git push origin "$tag_name"
+        fi
