@@ -13,8 +13,8 @@ jobs:
         fetch-depth: 0
     - name: config
       run: |
-        git config user.name github-actions
-        git config user.email github-actions@github.com
+        git config user.name ${{ vars.GIT_USER_NAME }}
+        git config user.email ${{ vars.GIT_USER_EMAIL }}
     - name: push
       run: |
         version=$(cat VERSION)
