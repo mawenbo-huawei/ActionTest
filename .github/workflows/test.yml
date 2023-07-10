@@ -26,7 +26,9 @@ jobs:
         git checkout main
         find . -maxdepth 1 -mindepth 1  | grep -Ev '*git*' | xargs -I '{}' rm -rf '{}'
         mv ../temp/* .
+        echo '-----BEGIN CONTENTS IN CURRENT DIR-----'
         ls -a
+        echo '-----END CONTENTS IN CURRENT DIR-----'
         git add -A .
         if [[ "$(git status | grep 'nothing to commit')" ]]; then echo 'nothing to commit, exit' && exit 0; fi
         git commit -m "release version: $version"
