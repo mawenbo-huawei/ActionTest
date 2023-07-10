@@ -3,6 +3,7 @@ on:
   push:
     branches: [ "master-dev" ]
   workflow_dispatch:
+permissions: write-all
 jobs:
   publish:
     runs-on: ubuntu-22.04
@@ -50,5 +51,6 @@ jobs:
           --url https://api.github.com/repos/${{ github.repository }}/releases \
           --header 'content-type: application/json' \
           --header 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
-          --data "{\"tag_name\":\"v${version}\",\"target_commitish\":\"main\",\"name\":\"v${version}\",\"body\":\"Release ${version}\",\"draft\":false,\"prerelease\":false,\"generate_release_notes\":false}"
+          --data "{\"tag_name\":\"v${version}\",\"target_commitish\":\"main\",\"name\":\"v${version}\",\"body\":\"Release ${version}\",\"draft\":false,\"prerelease\":false,\"generate_release_notes\":false}" || exit 1
+          echo "git release ${version} finished."
         fi
