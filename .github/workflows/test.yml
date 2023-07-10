@@ -46,4 +46,9 @@ jobs:
           git tag -a "$tag_name" -m "" HEAD
           git push origin "$tag_name"
           echo "git push tag ${tag_name} finished."
+          curl --request POST \
+          --url https://api.github.com/repos/${{ github.repository }}/releases \
+          --header 'content-type: application/json' \
+          --header 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          --data "{\"tag_name\":\"v${version}\",\"target_commitish\":\"main\",\"name\":\"v${version}\",\"body\":\"Release ${version}\",\"draft\":false,\"prerelease\":false,\"generate_release_notes\":false}"
         fi
