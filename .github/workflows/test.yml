@@ -41,11 +41,11 @@ jobs:
         done
         if [[ "$tag_exists" == "true" ]]
         then
-          git push
+          git push origin main
           echo "git push finished."
         else
           git tag -a "$tag_name" -m "" HEAD
-          git push origin "$tag_name"
+          git push origin main "$tag_name"
           echo "git push tag ${tag_name} finished."
           curl --request POST \
           --url https://api.github.com/repos/${{ github.repository }}/releases \
