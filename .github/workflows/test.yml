@@ -1,0 +1,20 @@
+tname: test
+on:
+  workflow_dispatch:
+jobs:
+  publish:
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+    - name: push
+      run: |
+        git config --global user.email "mawenbo12@huawei.com"
+        git config --global user.name "mawenbo"
+        current=$(date +%Y%m%d%H%m%s)
+        echo "$current" > "$current"
+        git add .
+        git commit -m "$current"
+        git push
+      shell: bash
