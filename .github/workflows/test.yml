@@ -19,7 +19,7 @@ jobs:
         git checkout main
         find . -maxdepth 1 -mindepth 1  | grep -Ev '*git*' | xargs -I '{}' rm -rf '{}'
         mv ../temp/* .
-        tag=$(git describe --abbrev=0 --tags)
+        if [ -n "$(git tag --list)" ]; then tag=$(git describe --abbrev=0 --tags); fi
         if [[ "$tag" == *"$version"* ]]; then
           echo "yes"
         else
