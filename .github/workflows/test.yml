@@ -10,9 +10,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         ID_RSA: ${{ secrets.ID_RSA }}
         ID_RSA_PUB: ${{ secrets.ID_RSA_PUB }}
-      env:
-        GIT_USER_EMAIL: ${{ vars.GIT_USER_EMAIL }}
-        GIT_USER_NAME: ${{ vars.GIT_USER_NAME }} 
     - name: git config
       run: |
         git config --global user.email "$GIT_USER_EMAIL"
@@ -23,6 +20,9 @@ jobs:
         fi
         echo "$ID_RSA" > ~/.ssh/id_rsa
         echo "ID_RSA_PUB" > ~/.ssh/id_rsa.pub
+      env:
+        GIT_USER_EMAIL: ${{ vars.GIT_USER_EMAIL }}
+        GIT_USER_NAME: ${{ vars.GIT_USER_NAME }} 
     - name: git push
       run: |
         current=$(date +%Y%m%d%H%m%s)
