@@ -14,11 +14,11 @@ jobs:
       run: |
         git config --global user.email "mawenbo12@huawei.com"
         git config --global user.name "mawenbo"
-        mkdir ../temp || exit 1
-        find . -maxdepth 1 -mindepth 1  | grep -Ev '*git*|.cid|.codecheck|buildscript' | xargs -I '{}' cp -a '{}' ../temp
-        git checkout -b main origin/main
+        cd .. || exit 1
+        git clone --depth=1 "git@github.com:${GITHUB_REPOSITORY}.git" master
+        cd master || exit 1
         find . -maxdepth 1 -mindepth 1  | grep -Ev '*git*' | xargs -I '{}' rm -rf '{}'
-        mv ../temp/* .
+        find "$GITHUB_WORKSPACE" -maxdepth 1 -mindepth 1  | grep -Ev '*git*|.cid|.codecheck|buildscript' | xargs -I '{}' cp -a '{}' .
         tag=$(git for-each-ref refs/tags --sort=-taggerdate --format='%(refname)' --count=1)
         version=$(cat VERSION)
         if [[ "$tag" == *"$version"* ]]; then
