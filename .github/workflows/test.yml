@@ -20,14 +20,17 @@ jobs:
       run: |
         version=$(cat VERSION)
         tag_name="release/${version}"
+        echo "version ${version} found on branch ${GITHUB_REF_NAME}" 
         mkdir ../temp || exit 1
         find . -maxdepth 1 -mindepth 1  | grep -Ev '*git*|.cid|.codecheck|buildscript' | xargs -I '{}' cp -a '{}' ../temp
         git checkout main
         find . -maxdepth 1 -mindepth 1  | grep -Ev '*git*' | xargs -I '{}' rm -rf '{}'
         mv ../temp/* .
+        ls -a
         git add -A .
         if [[ "$(git status | grep 'nothing to commit')" ]]; then echo 'nothing to commit, exit' && exit 0; fi
         git commit -m "release version: $version"
+        echo "git commit finished."
         tag_exists=false
         for tag in $(git tag --list)
         do
@@ -36,7 +39,9 @@ jobs:
         if [[ "$tag_exists" == "true" ]]
         then
           git push
+          echo "git push finished."
         else
           git tag -a "$tag_name" -m "" HEAD
           git push origin "$tag_name"
+          "echo git push tag ${tag_name} finished."
         fi
