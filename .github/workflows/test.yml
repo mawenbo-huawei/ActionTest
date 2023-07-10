@@ -45,5 +45,5 @@ jobs:
         else
           git tag -a "$tag_name" -m "" HEAD
           git push origin "$tag_name"
-          "echo git push tag ${tag_name} finished."
+          echo "git push tag ${tag_name} finished."
         fi
