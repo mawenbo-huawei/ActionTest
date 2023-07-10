@@ -9,12 +9,12 @@ jobs:
     steps:
     - uses: actions/checkout@v3
       with:
-        ssh_key: ${{ secrets.SSH_KEY }}
+        ssh-key: ${{ secrets.SSH_KEY }}
         fetch-depth: 0
     - name: config
       run: |
-        git config user.name ${{ vars.GIT_USER_NAME }}
-        git config user.email ${{ vars.GIT_USER_EMAIL }}
+        git config user.name github-actions
+        git config user.email github-actions@github.com
     - name: push
       run: |
         version=$(cat VERSION)
