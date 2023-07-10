@@ -11,6 +11,10 @@ jobs:
       with:
         ssh_key: ${{ secrets.SSH_KEY }}
         fetch-depth: 0
+    - name: config
+      run: |
+        git config user.name github-actions
+        git config user.email github-actions@github.com
     - name: push
       run: |
         version=$(cat VERSION)
