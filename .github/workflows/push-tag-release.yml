@@ -1,4 +1,4 @@
-name: push
+name: push && tag && release
 on:
   push:
     branches: [ "master-dev" ]
@@ -17,10 +17,8 @@ jobs:
         git config user.name github-actions
         git config user.email github-actions@github.com
     - name: push
-      shell: bash
       run: |
         version=$(cat VERSION)
-        tag_name="v${version}"
         echo "version ${version} found on branch ${GITHUB_REF_NAME}" 
         mkdir ../temp || exit 1
         find . -maxdepth 1 -mindepth 1  | grep -Ev '*git*|.cid|.codecheck|buildscript' | xargs -I '{}' cp -a '{}' ../temp
@@ -31,11 +29,16 @@ jobs:
         ls -a
         echo '-----END CONTENTS IN CURRENT DIR-----'
         git add -A .
-        if [[ "$(git status | grep 'nothing to commit')" ]]; then echo 'nothing to commit, exit' && exit 0; fi
+        if [[ "$(git status | grep 'nothing to commit')" ]]; then echo 'nothing to commit, skip' && exit 0; fi
         git commit -m "release version: $version"
         echo "git commit finished."
         git push origin main
         echo "git push finished."
+    - name: tag && release
+      shell: bash
+      run: |
+        version=$(cat VERSION)
+        tag_name="v${version}"
         tag_exists=false
         for tag in $(git tag --list)
         do
@@ -62,4 +65,6 @@ jobs:
           -d "{\"tag_name\":\"${tag_name}\",\"name\":\"${tag_name}\",\"body\":\"Release ${version}\"}" \
           https://api.github.com/repos/${{ github.repository }}/releases || exit 1
           echo "create release ${version} finished."
+        else
+          echo "git tag ${tag_name} exists, skip"
         fi
