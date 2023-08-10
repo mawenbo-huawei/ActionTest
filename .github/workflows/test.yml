@@ -10,12 +10,9 @@ jobs:
         ssh-key: ${{ secrets.SSH_KEY }}
     - name: git config
       run: |
+        git lfs install
         git config user.name github-actions
         git config user.email github-actions@github.com
     - name: git push
       run: |
-        current=$(date +%Y%m%d%H%m%s)
-        echo "$current" > "$current"
-        git add .
-        git commit -m "$current"
-        git push
+        git clone https://gitee.com/HuaweiCloudDeveloper/huaweicloud-sdk-java-v3.git
