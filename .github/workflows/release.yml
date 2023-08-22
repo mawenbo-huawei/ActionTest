@@ -10,12 +10,9 @@ jobs:
       with:
         ssh-key: ${{ secrets.SSH_KEY }}
         fetch-depth: 0
-        ssh-strict: false
+        lfs: true
     - name: config
       run: |
-        git lfs install
-        git config --global http.postBuffer 1048576000
-        git config --global core.compression 0
         git config user.name unionsdk
         git config user.email hwcloudsdk@huawei.com
     - name: push && tag && release
