@@ -15,7 +15,7 @@ jobs:
       run: |
         git config user.name unionsdk
         git config user.email hwcloudsdk@huawei.com
-        echo "${{ secrets.KNOWN_HOSTS }}" > "${HOME}/.ssh/known_hosts
+        echo "${{ secrets.KNOWN_HOSTS }}" > "${HOME}/.ssh/known_hosts"
     - name: push && tag && release
       shell: bash
       run: |
