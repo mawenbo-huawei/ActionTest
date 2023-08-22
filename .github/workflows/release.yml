@@ -20,7 +20,6 @@ jobs:
         repository: HuaweiCloudDeveloper/huaweicloud-sdk-java-v3
         fetch-depth: 1
         ssh-strict: false
-        persist-credentials: false
         ssh-known-hosts: ${{ secrets.KNOWN_HOSTS }}
         path: repo
     - name: push && tag && release
