@@ -13,13 +13,14 @@ jobs:
     - name: config
       run: |
         git lfs install
+        git config --global http.postBuffer 1048576000
         git config user.name unionsdk
         git config user.email hwcloudsdk@huawei.com
     - name: push && tag && release
       shell: bash
       run: |
         # Pull the code from the source repository
-        git clone $SOURCE repo
+        git clone --depth=1 $SOURCE repo
         cd repo || exit 1
         ls -a
       env:
