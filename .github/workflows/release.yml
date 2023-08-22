@@ -17,7 +17,7 @@ jobs:
       with:
         ssh-key: ${{ secrets.SSH_KEY }}
         github-server-url: https://gitee.com
-        repository: git@gitee.com:HuaweiCloudDeveloper/huaweicloud-sdk-java-v3
+        repository: git@gitee.com:HuaweiCloudDeveloper/huaweicloud-sdk-java-v3.git
         fetch-depth: 1
         path: repo
     - name: push && tag && release
