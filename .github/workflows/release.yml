@@ -20,7 +20,7 @@ jobs:
         repository: HuaweiCloudDeveloper/huaweicloud-sdk-java-v3
         fetch-depth: 1
         ssh-strict: false
-        ssh-known-hosts: gitee.com ecdsa-sha2-nistp256 AAAAE2UjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBMuEoYdx6to5oxR601Wj8uoe1aIOX1£KOHWOtLqTg1tsLT 1iFwXU5JmFjU46EzeMBU/6EmI1uaRI6HiEPtPtJHE= 
+        ssh-known-hosts: gitee.com
         path: repo
     - name: push && tag && release
       shell: bash
