@@ -19,6 +19,7 @@ jobs:
         github-server-url: https://gitee.com
         repository: HuaweiCloudDeveloper/huaweicloud-sdk-java-v3
         fetch-depth: 1
+        ssh-strict: false
         path: repo
     - name: push && tag && release
       shell: bash
