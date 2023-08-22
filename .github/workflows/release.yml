@@ -15,7 +15,8 @@ jobs:
     - name: Checkout tools repo
       uses: actions/checkout@v3
       with:
-        github-server-url: https://gitee.com
+        ssh-key: ${{ secrets.SSH_KEY }}
+        github-server-url: git@gitee.com
         repository: HuaweiCloudDeveloper/huaweicloud-sdk-java-v3
         fetch-depth: 1
         path: repo
