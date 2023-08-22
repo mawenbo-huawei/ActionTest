@@ -24,7 +24,7 @@ jobs:
       shell: bash
       run: |
         # Pull the code from the source repository
-        gh repo clone --depth=1 $SOURCE repo
+        gh repo clone $SOURCE repo
         cd repo || exit 1
         ls -a
       env:
