@@ -10,6 +10,7 @@ jobs:
       with:
         ssh-key: ${{ secrets.SSH_KEY }}
         fetch-depth: 0
+        ssh-strict: false
     - name: config
       run: |
         git lfs install
