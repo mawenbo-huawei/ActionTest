@@ -6,13 +6,7 @@ jobs:
   release:
     runs-on: ubuntu-22.04
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        ssh-key: ${{ secrets.SSH_KEY }}
-        fetch-depth: 0
-        path: main
-    - name: Checkout tools repo
+    - name: Checkout Source
       uses: actions/checkout@v3
       with:
         ssh-key: ${{ secrets.SSH_KEY }}
@@ -22,11 +16,19 @@ jobs:
         ssh-strict: false
         ssh-known-hosts: ${{ secrets.KNOWN_HOSTS }}
         path: repo
+    - name: Checkout Target
+      uses: actions/checkout@v3
+      with:
+        ssh-key: ${{ secrets.SSH_KEY }}
+        fetch-depth: 0
+        path: main
     - name: push && tag && release
       shell: bash
       run: |
         cd repo || exit 1
         ls -l
+        cd - || exit 1
         cd main || exit 1
         ls -l
+        cd - || exit 1
         
