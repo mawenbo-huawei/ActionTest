@@ -6,21 +6,18 @@ jobs:
   release:
     runs-on: ubuntu-22.04
     steps:
-    - name: Checkout Source
+    - name: Pull Source
       uses: actions/checkout@v3
       with:
-        ssh-key: ${{ secrets.SSH_KEY }}
         github-server-url: https://gitee.com
-        repository: HuaweiCloudDeveloper/huaweicloud-sdk-java-v3
-        lfs: true
-        ssh-strict: false
+        repository: $$ {{ vars.SOURCE_REPO }}
+        ssh-key: ${{ secrets.SSH_KEY }}
         ssh-known-hosts: ${{ secrets.KNOWN_HOSTS }}
         path: source
-    - name: Checkout Target
+    - name: Pull Target
       uses: actions/checkout@v3
       with:
         ssh-key: ${{ secrets.SSH_KEY }}
-        fetch-tags: true
         path: target
     - name: push && tag && release
       shell: bash
