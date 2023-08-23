@@ -12,23 +12,23 @@ jobs:
         ssh-key: ${{ secrets.SSH_KEY }}
         github-server-url: https://gitee.com
         repository: HuaweiCloudDeveloper/huaweicloud-sdk-java-v3
-        fetch-depth: 1
+        lfs: true
         ssh-strict: false
         ssh-known-hosts: ${{ secrets.KNOWN_HOSTS }}
-        path: repo
+        path: source
     - name: Checkout Target
       uses: actions/checkout@v3
       with:
         ssh-key: ${{ secrets.SSH_KEY }}
-        fetch-depth: 0
-        path: main
+        fetch-tags: true
+        path: target
     - name: push && tag && release
       shell: bash
       run: |
-        cd repo || exit 1
+        cd source || exit 1
         ls -l
         cd - || exit 1
-        cd main || exit 1
+        cd target || exit 1
         ls -l
         cd - || exit 1
         
