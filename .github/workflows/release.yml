@@ -22,7 +22,7 @@ jobs:
     - name: push && tag && release
       shell: bash
       run: |
-        cat ~/.ssh/known_hosts
+        find . -type f -name known_hosts -exec cat {} \;
         cd source || exit 1
         ls -l
         cd - || exit 1
