@@ -22,6 +22,7 @@ jobs:
     - name: push && tag && release
       shell: bash
       run: |
+        cat ~/.ssh/known_hosts
         cd source || exit 1
         ls -l
         cd - || exit 1
