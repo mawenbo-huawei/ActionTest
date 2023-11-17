@@ -1,0 +1,13 @@
+name: test failed
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v3
+    - name: sleep and failed
+      run: |
+        echo start
+        sleep 60
+        exit 1
