@@ -1,0 +1,16 @@
+name: test retry
+on:
+  workflow_dispatch:
+jobs:
+  publish:
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v3
+    - name: write
+      run: |
+        echo "test " >> test.log
+    - name: retry
+      run: |
+        ls
+        cat test.log
+        exit 1
