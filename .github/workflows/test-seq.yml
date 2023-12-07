@@ -1,0 +1,12 @@
+name: test seq
+on:
+  workflow_dispatch:
+jobs:
+  publish:
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v3
+    - name: seq
+      run: |
+         seq 1 1000 > numbers.txt
+         cat numbers.txt
