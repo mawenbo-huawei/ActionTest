@@ -1,0 +1,23 @@
+name: test java
+on:
+  workflow_dispatch:
+jobs:
+  build:  
+    runs-on: ubuntu-22.04
+    strategy:  
+      matrix:  
+        java-version: [8.0.352, 11.0.23, 17.0.11, 21.0.3]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Java ${{ matrix.java-version }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ matrix.java-version }}
+          distribution: 'temurin'
+          cache: 'maven'
+      - name: Test
+        run: |
+          cd "$(dirname "$(readlink -f "$(which java)")")" || exit 1
+          cert_path=$(find . -type f -name "cacerts" -print -quit)
+          keytool -list -keystore "$cert_path" -storepass changeit
+        shell: bash
