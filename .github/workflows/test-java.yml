@@ -16,7 +16,7 @@ jobs:
           distribution: 'temurin'
       - name: Test
         run: |
-          cd "$(dirname "$(readlink -f "$(which java)")")" || exit 1
+          cd "$(dirname $JAVA_HOME)" || exit 1
           cert_path=$(find . -type f -name "cacerts" -print -quit)
           keytool -list -keystore "$cert_path" -storepass changeit
         shell: bash
