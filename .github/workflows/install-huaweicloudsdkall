@@ -1,0 +1,28 @@
+name: Install huaweicloudsdkall
+permissions:
+  contents: read
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'version(optional)'
+        required: false
+        default: ''
+jobs:
+  publish:
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.10'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        version="${{ github.event.inputs.version }}"
+        if [ -n "$version" ]; then
+          pip install huaweicloudsdkall=="$version"
+        else
+          pip install huaweicloudsdkall --upgrade
+        fi
