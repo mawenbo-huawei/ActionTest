@@ -9,7 +9,7 @@ on:
         required: false
         default: ''
 jobs:
-  publish:
+  install:
     runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v3
