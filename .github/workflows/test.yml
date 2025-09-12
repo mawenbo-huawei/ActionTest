@@ -6,13 +6,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v3
-      with:
-        ssh-key: ${{ secrets.SSH_KEY }}
-    - name: git config
+    - name: test1
       run: |
-        git lfs install
-        git config user.name github-actions
-        git config user.email github-actions@github.com
-    - name: git push
-      run: |
-        git clone https://gitee.com/HuaweiCloudDeveloper/huaweicloud-sdk-java-v3.git
+        uname -a
+        cat /etc/os-release
